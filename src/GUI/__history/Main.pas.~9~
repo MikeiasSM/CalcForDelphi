@@ -1,0 +1,66 @@
+unit Main;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, System.StrUtils,
+  Vcl.Forms, Vcl.ExtCtrls, Vcl.Controls, Vcl.StdCtrls;
+
+type
+  TPrincipal = class(TForm)
+    lblDisplay: TLabel;
+    pnPrincipal: TPanel;
+    pnDisplay: TPanel;
+    Panel1: TPanel;
+    GridPanel1: TGridPanel;
+    btnNumSete: TButton;
+    btnNumOito: TButton;
+    btnNumNove: TButton;
+    btnOperadorAdicao: TButton;
+    btnNumQuatro: TButton;
+    btnNumCinco: TButton;
+    btnNumSeis: TButton;
+    btnOperadorSubtracao: TButton;
+    btnNumUm: TButton;
+    btnNumDois: TButton;
+    btnNumTres: TButton;
+    btnOperadorMultiplicacao: TButton;
+    btnVirgula: TButton;
+    btnNumZero: TButton;
+    btnOperadorIgual: TButton;
+    btnOperadorDivisao: TButton;
+  private
+    { Private declarations }
+
+    procedure GetDigito(LDigito : String);
+
+
+  public
+    { Public declarations }
+  end;
+
+var
+  Principal: TPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TPrincipal.GetDigito(LDigito: String);
+begin
+  if (String(lblDisplay.Caption).Equals('0')) then
+  begin
+    lblDisplay.Caption := LDigito;
+  end else
+  begin
+    if ((String(lblDisplay.Caption).Contains(',')) and (String(lblDisplay.Caption).Contains(','))) then
+    begin
+    end
+    else
+    begin
+      lblDisplay.Caption := lblDisplay.Caption + LDigito;
+    end;
+  end;
+end;
+
+end.
