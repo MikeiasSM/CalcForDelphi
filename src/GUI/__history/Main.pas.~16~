@@ -56,13 +56,6 @@ type
     procedure Backspace();
     procedure RealizaOperacao(POperador: TOperadores);
 
-    function calculate(PExpressao: String): String;
-    function isOperator(LChar: Char) : boolean;
-    function getOperators(PExpressao: String): TList;
-    function getNumbers(PExpressao: String): TList;
-    function calculateAns(PNumbers: TList; POperator: TList) : Double;
-    function operation(PValorA: double; PValorB: String; PValorC: Double): Double;
-
   public
     { Public declarations }
   end;
