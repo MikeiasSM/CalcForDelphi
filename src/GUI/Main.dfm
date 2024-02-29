@@ -25,8 +25,6 @@ object Principal: TPrincipal
     Padding.Right = 5
     Padding.Bottom = 5
     TabOrder = 0
-    ExplicitWidth = 385
-    ExplicitHeight = 432
     object pnDisplay: TPanel
       Left = 5
       Top = 5
@@ -38,7 +36,6 @@ object Principal: TPrincipal
       Padding.Left = 5
       Padding.Right = 5
       TabOrder = 0
-      ExplicitWidth = 375
       object lblDisplay: TLabel
         Left = 5
         Top = 0
@@ -68,8 +65,6 @@ object Principal: TPrincipal
       Padding.Top = 5
       Padding.Bottom = 5
       TabOrder = 1
-      ExplicitWidth = 375
-      ExplicitHeight = 321
       object GridPanel1: TGridPanel
         Left = 0
         Top = 5
@@ -194,8 +189,6 @@ object Principal: TPrincipal
             SizeStyle = ssAuto
           end>
         TabOrder = 0
-        ExplicitWidth = 375
-        ExplicitHeight = 311
         object btnNumSete: TButton
           Left = 0
           Top = 0
@@ -211,7 +204,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 0
           OnClick = btnNumSeteClick
-          ExplicitWidth = 94
         end
         object btnNumOito: TButton
           Left = 95
@@ -228,7 +220,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 1
           OnClick = btnNumOitoClick
-          ExplicitLeft = 94
         end
         object btnNumNove: TButton
           Left = 189
@@ -245,8 +236,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 2
           OnClick = btnNumNoveClick
-          ExplicitLeft = 188
-          ExplicitWidth = 93
         end
         object btnOperadorAdicao: TButton
           Left = 284
@@ -263,8 +252,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 3
           OnClick = btnOperadorAdicaoClick
-          ExplicitLeft = 281
-          ExplicitWidth = 94
         end
         object btnNumQuatro: TButton
           Left = 0
@@ -281,7 +268,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 4
           OnClick = btnNumQuatroClick
-          ExplicitWidth = 94
         end
         object btnNumCinco: TButton
           Left = 95
@@ -298,7 +284,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 5
           OnClick = btnNumCincoClick
-          ExplicitLeft = 94
         end
         object btnNumSeis: TButton
           Left = 189
@@ -315,8 +300,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 6
           OnClick = btnNumSeisClick
-          ExplicitLeft = 188
-          ExplicitWidth = 93
         end
         object btnOperadorSubtracao: TButton
           Left = 284
@@ -332,8 +315,7 @@ object Principal: TPrincipal
           Font.Style = []
           ParentFont = False
           TabOrder = 7
-          ExplicitLeft = 281
-          ExplicitWidth = 94
+          OnClick = btnOperadorSubtracaoClick
         end
         object btnNumUm: TButton
           Left = 0
@@ -350,8 +332,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 8
           OnClick = btnNumUmClick
-          ExplicitWidth = 94
-          ExplicitHeight = 77
         end
         object btnNumDois: TButton
           Left = 95
@@ -368,8 +348,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 9
           OnClick = btnNumDoisClick
-          ExplicitLeft = 94
-          ExplicitHeight = 77
         end
         object btnNumTres: TButton
           Left = 189
@@ -386,9 +364,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 10
           OnClick = btnNumTresClick
-          ExplicitLeft = 188
-          ExplicitWidth = 93
-          ExplicitHeight = 77
         end
         object btnOperadorMultiplicacao: TButton
           Left = 284
@@ -404,9 +379,7 @@ object Principal: TPrincipal
           Font.Style = []
           ParentFont = False
           TabOrder = 11
-          ExplicitLeft = 281
-          ExplicitWidth = 94
-          ExplicitHeight = 77
+          OnClick = btnOperadorMultiplicacaoClick
         end
         object btnVirgula: TButton
           Left = 0
@@ -423,8 +396,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 12
           OnClick = btnVirgulaClick
-          ExplicitTop = 233
-          ExplicitWidth = 94
         end
         object btnNumZero: TButton
           Left = 95
@@ -441,8 +412,6 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 13
           OnClick = btnNumZeroClick
-          ExplicitLeft = 94
-          ExplicitTop = 233
         end
         object btnOperadorIgual: TButton
           Left = 189
@@ -458,9 +427,7 @@ object Principal: TPrincipal
           Font.Style = []
           ParentFont = False
           TabOrder = 14
-          ExplicitLeft = 188
-          ExplicitTop = 233
-          ExplicitWidth = 93
+          OnClick = btnOperadorIgualClick
         end
         object btnOperadorDivisao: TButton
           Left = 284
@@ -477,9 +444,7 @@ object Principal: TPrincipal
           ModalResult = 1
           ParentFont = False
           TabOrder = 15
-          ExplicitLeft = 281
-          ExplicitTop = 233
-          ExplicitWidth = 94
+          OnClick = btnOperadorDivisaoClick
         end
       end
     end
@@ -493,7 +458,6 @@ object Principal: TPrincipal
       Padding.Left = 5
       Padding.Top = 5
       TabOrder = 2
-      ExplicitWidth = 375
       object lblOperacao: TLabel
         Left = 5
         Top = 5
@@ -521,9 +485,8 @@ object Principal: TPrincipal
         Caption = '<-'
         TabOrder = 0
         OnClick = btnBackspaceClick
-        ExplicitLeft = 280
       end
-      object Button1: TButton
+      object btnClear: TButton
         Left = 189
         Top = 5
         Width = 95
@@ -531,8 +494,7 @@ object Principal: TPrincipal
         Align = alRight
         Caption = 'C'
         TabOrder = 1
-        OnClick = btnBackspaceClick
-        ExplicitLeft = 185
+        OnClick = btnClearClick
       end
     end
   end

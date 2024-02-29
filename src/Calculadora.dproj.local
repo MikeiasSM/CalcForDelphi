@@ -3,8 +3,8 @@
 	<Transactions>
     <Transaction>2023/12/15 23:02:21.000.359,=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/02/08 19:16:59.000.208,=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/02/08 19:39:18.000.171,C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Calculadora\src\GUI\Main.dfm=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2024/02/08 19:39:18.000.171,C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Calculadora\src\GUI\Main.pas=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/02/08 19:39:30.000.155,C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Calculadora\src\Calculadora.dproj=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2024/02/08 19:39:18.000.171,C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Calculadora\src\GUI\Main.pas</Transaction>
+    <Transaction>2024/02/08 19:39:18.000.171,C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Calculadora\src\GUI\Main.dfm</Transaction>
+    <Transaction>2024/02/08 19:39:30.000.155,C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Plenustech-Dev\Documents\Embarcadero\Studio\Projects\Calculadora\src\Calculadora.dproj</Transaction>
   </Transactions>
 </BorlandProject>

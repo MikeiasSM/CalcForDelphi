@@ -3,7 +3,8 @@ unit Main;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, System.StrUtils,
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, System.StrUtils, System.Generics.Collections,
+
   Vcl.Forms, Vcl.ExtCtrls, Vcl.Controls, Vcl.StdCtrls;
 
 type
@@ -34,7 +35,7 @@ type
     Panel2: TPanel;
     btnBackspace: TButton;
     lblOperacao: TLabel;
-    Button1: TButton;
+    btnClear: TButton;
     procedure btnNumUmClick(Sender: TObject);
     procedure btnNumDoisClick(Sender: TObject);
     procedure btnNumTresClick(Sender: TObject);
@@ -48,20 +49,25 @@ type
     procedure btnNumZeroClick(Sender: TObject);
     procedure btnOperadorAdicaoClick(Sender: TObject);
     procedure btnBackspaceClick(Sender: TObject);
+    procedure btnOperadorSubtracaoClick(Sender: TObject);
+    procedure btnOperadorMultiplicacaoClick(Sender: TObject);
+    procedure btnOperadorDivisaoClick(Sender: TObject);
+    procedure btnClearClick(Sender: TObject);
+    procedure btnOperadorIgualClick(Sender: TObject);
   private
     { Private declarations }
-    LOperacao: String;
-    LOperador: String;
+
+    LExpressao: String;
+
     procedure GetDigito(LDigito : String);
     procedure Backspace();
-    procedure RealizaOperacao(POperador: TOperadores);
 
     function calculate(PExpressao: String): String;
-    function isOperator(LChar: Char) : boolean;
-    function getOperators(PExpressao: String): TList;
-    function getNumbers(PExpressao: String): TList;
-    function calculateAns(PNumbers: TList; POperator: TList) : Double;
-    function operation(PValorA: double; PValorB: String; PValorC: Double): Double;
+    function isOperator(pChar: Char) : boolean;
+    function getOperators(PExpressao: String): TStack<String>;
+    function getNumbers(PExpressao: String): TStack<Currency>;
+    function calculateAns(PNumbers: TStack<Currency>; POperator: TStack<String>) : Currency;
+    function operation(pValorA: Currency; pStringA: String; pValorB: Currency): Currency;
 
   public
     { Public declarations }
@@ -95,6 +101,11 @@ procedure TPrincipal.btnBackspaceClick(Sender: TObject);
 begin
   Backspace();
   lblOperacao.Caption := '';
+end;
+
+procedure TPrincipal.btnClearClick(Sender: TObject);
+begin
+  lblDisplay.Caption := '0';
 end;
 
 procedure TPrincipal.btnNumCincoClick(Sender: TObject);
@@ -149,12 +160,94 @@ end;
 
 procedure TPrincipal.btnOperadorAdicaoClick(Sender: TObject);
 begin
-  RealizaOperacao(toAdicao);
+  GetDigito('+');
+end;
+
+procedure TPrincipal.btnOperadorDivisaoClick(Sender: TObject);
+begin
+  GetDigito('/');
+end;
+
+procedure TPrincipal.btnOperadorIgualClick(Sender: TObject);
+var
+  LResult: String;
+begin
+
+  try
+
+    LResult := calculate(lblDisplay.Caption);
+    lblDisplay.Caption := LResult;
+
+  except
+
+  end;
+
+end;
+
+procedure TPrincipal.btnOperadorMultiplicacaoClick(Sender: TObject);
+begin
+  GetDigito('*');
+end;
+
+procedure TPrincipal.btnOperadorSubtracaoClick(Sender: TObject);
+begin
+  GetDigito('-');
 end;
 
 procedure TPrincipal.btnVirgulaClick(Sender: TObject);
 begin
   GetDigito(',');
+end;
+
+function TPrincipal.calculate(PExpressao: String): String;
+var
+  LListOperators: TStack<String>;
+  LListNumbers: TStack<Currency>;
+  LValor: Currency;
+begin
+
+  LExpressao := PExpressao;
+
+  LListOperators := TStack<String>.Create;
+  LListNumbers := TStack<Currency>.Create;
+
+  LListOperators := getOperators(PExpressao);
+  LListNumbers := getNumbers(PExpressao);
+
+  LValor := calculateAns(LListNumbers, LListOperators);
+
+
+  Result := CurrToStr(LValor);
+
+end;
+
+function TPrincipal.calculateAns(pNumbers: TStack<Currency>; pOperator: TStack<String>): Currency;
+var
+  LValor: Currency;
+  LInteracao: Integer;
+  LCont: Integer;
+begin
+
+  LValor := 0;
+  LInteracao := 0;
+
+  while PNumbers.Count -1 > 0 do
+  begin
+
+    if LValor = 0 then
+    begin
+      LValor := operation(pNumbers.Pop, pOperator.Pop, pNumbers.Pop);
+      LInteracao := LInteracao + 1;
+    end
+    else begin
+      LValor := operation(LValor, pOperator.Pop, pNumbers.Pop);
+      LInteracao := LInteracao + 1;
+    end;
+
+  end;
+
+  Result := LValor;
+
 end;
 
 procedure TPrincipal.GetDigito(LDigito: String);
@@ -174,37 +267,100 @@ begin
   end;
 end;
 
-procedure TPrincipal.RealizaOperacao(POperador: TOperadores);
+function TPrincipal.getNumbers(pExpressao: String): TStack<Currency>;
 var
-  LDisplay: String;
+  LListNumbers: TStack<Currency>;
+  LNumber: String;
 begin
-  LDisplay := lblDisplay.Caption;
+  LListNumbers := TStack<Currency>.Create;
 
-  if (not (LDisplay.Contains('+') or LDisplay.Contains('-') or LDisplay.Contains('*') or LDisplay.Contains('/'))) then
+  pExpressao := pExpressao + '+';
+
+  for var LChar in PExpressao do
   begin
-    lblDisplay.Caption := '';
 
-    case POperador of
-      toAdicao:
+    if (not isOperator(LChar)) then
+    begin
+      LNumber := LNumber + LChar;
+      Break;
+    end
+    else begin
+
+      if (PExpressao.Length = 0) then
       begin
-        LOperacao := LDisplay + '+';
-      end;
-      toSubtracao:
-      begin
-        LOperacao := LDisplay + '-';
-      end;
-      toMultiplicacao:
-      begin
-        LOperacao := LDisplay + '*';
-      end;
-      toDivisao:
-      begin
-        LOperacao := LDisplay + '/';
+        LNumber := LNumber + LChar;
+        Break;
+      end
+      else begin
+        LListNumbers.Push(StrToCurr(LNumber));
+        Break;
       end;
     end;
-    lblOperacao.Caption := LOperacao;
-    lblDisplay.Caption := '0';
+
   end;
+
+  Result := LListNumbers;
+end;
+
+function TPrincipal.getOperators(pExpressao: String): TStack<String>;
+var
+  cont: Integer;
+  LListOperadores: TStack<String>;
+begin
+  LListOperadores := TStack<String>.Create;
+  cont := 0;
+
+  for var LChar in PExpressao do
+  begin
+    if ((isOperator(LChar)) and (cont <> 0)) then
+    begin
+      LListOperadores.Push(LChar);
+      cont := 0;
+    end;
+    cont := 1;
+  end;
+
+  Result := LListOperadores;
+
+end;
+
+function TPrincipal.isOperator(pChar: Char): boolean;
+begin
+  Result := False;
+  if ((pChar = '+') or (pChar = '-') or (pChar = '*') or (pChar = '/')) then
+  begin
+    Result := True;
+  end;
+end;
+
+function TPrincipal.operation(pValorA: Currency; pStringA: String; pValorB: Currency): Currency;
+var
+  LValor: Double;
+begin
+
+  LValor := 0;
+
+  if pStringA = '+' then
+  begin
+    LValor := pValorA + pValorB;
+  end;
+
+  if pStringA = '-' then
+  begin
+    LValor := pValorA - pValorB;
+  end;
+
+  if pStringA = '*' then
+  begin
+    LValor := pValorA * pValorB;
+  end;
+
+  if pStringA = '/' then
+  begin
+    LValor := pValorA + pValorB;
+  end;
+
+  Result := LValor;
 
 end;
 
