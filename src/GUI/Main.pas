@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, System.StrUtils, System.Generics.Collections,
 
-  Vcl.Forms, Vcl.ExtCtrls, Vcl.Controls, Vcl.StdCtrls;
+  Vcl.Forms, Vcl.ExtCtrls, Vcl.Controls, Vcl.StdCtrls, Vcl.Dialogs;
 
 type
   TOperadores = (toAdicao, toSubtracao, toMultiplicacao, toDivisao);
@@ -57,16 +57,16 @@ type
   private
     { Private declarations }
 
-    LExpressao: String;
+    VExpressao: String;
 
     procedure GetDigito(LDigito : String);
     procedure Backspace();
 
     function calculate(PExpressao: String): String;
     function isOperator(pChar: Char) : boolean;
-    function getOperators(PExpressao: String): TStack<String>;
-    function getNumbers(PExpressao: String): TStack<Currency>;
-    function calculateAns(PNumbers: TStack<Currency>; POperator: TStack<String>) : Currency;
+    function getOperators(PExpressao: String): TQueue<String>;
+    function getNumbers(PExpressao: String): TQueue<Currency>;
+    function calculateAns(PNumbers: TQueue<Currency>; POperator: TQueue<String>) : Currency;
     function operation(pValorA: Currency; pStringA: String; pValorB: Currency): Currency;
 
   public
@@ -174,12 +174,11 @@ var
 begin
 
   try
-
     LResult := calculate(lblDisplay.Caption);
     lblDisplay.Caption := LResult;
-
   except
-
+    On E: Exception do
+    ShowMessage('Erro ao calcular: '+ E.Message);
   end;
 
 end;
@@ -201,18 +200,18 @@ end;
 
 function TPrincipal.calculate(PExpressao: String): String;
 var
-  LListOperators: TStack<String>;
-  LListNumbers: TStack<Currency>;
+  LListOperators: TQueue<String>;
+  LListNumbers: TQueue<Currency>;
   LValor: Currency;
 begin
 
-  LExpressao := PExpressao;
+  VExpressao := PExpressao;
 
-  LListOperators := TStack<String>.Create;
-  LListNumbers := TStack<Currency>.Create;
+  LListOperators := TQueue<String>.Create;
+  LListNumbers := TQueue<Currency>.Create;
 
-  LListOperators := getOperators(PExpressao);
-  LListNumbers := getNumbers(PExpressao);
+  LListOperators := getOperators(VExpressao);
+  LListNumbers := getNumbers(VExpressao);
 
   LValor := calculateAns(LListNumbers, LListOperators);
 
@@ -221,29 +220,31 @@ begin
 
 end;
 
-function TPrincipal.calculateAns(pNumbers: TStack<Currency>; pOperator: TStack<String>): Currency;
+function TPrincipal.calculateAns(pNumbers: TQueue<Currency>; pOperator: TQueue<String>): Currency;
 var
   LValor: Currency;
   LInteracao: Integer;
-  LCont: Integer;
 begin
 
   LValor := 0;
-  LInteracao := 0;
+//  LInteracao := 0;
 
-  while PNumbers.Count -1 > 0 do
+  while pNumbers.Count > 0 do
   begin
+
+    if POperator.Count = 0 then
+    begin
+      Result:= PNumbers.Peek;
+      Exit;
+    end;
 
     if LValor = 0 then
     begin
-      LValor := operation(pNumbers.Pop, pOperator.Pop, pNumbers.Pop);
-      LInteracao := LInteracao + 1;
+      LValor := operation(pNumbers.Dequeue, pOperator.Dequeue, pNumbers.Dequeue);
     end
     else begin
-      LValor := operation(LValor, pOperator.Pop, pNumbers.Pop);
-      LInteracao := LInteracao + 1;
+      LValor := operation(LValor, pOperator.Dequeue, pNumbers.Dequeue);
     end;
-
   end;
 
   Result := LValor;
@@ -267,12 +268,12 @@ begin
   end;
 end;
 
-function TPrincipal.getNumbers(pExpressao: String): TStack<Currency>;
+function TPrincipal.getNumbers(pExpressao: String): TQueue<Currency>;
 var
-  LListNumbers: TStack<Currency>;
+  LListNumbers: TQueue<Currency>;
   LNumber: String;
 begin
-  LListNumbers := TStack<Currency>.Create;
+  LListNumbers := TQueue<Currency>.Create;
 
   pExpressao := pExpressao + '+';
 
@@ -282,18 +283,18 @@ begin
     if (not isOperator(LChar)) then
     begin
       LNumber := LNumber + LChar;
-      Break;
+      Continue;
     end
     else begin
 
-      if (PExpressao.Length = 0) then
+      if (LNumber.Length = 0) then
       begin
         LNumber := LNumber + LChar;
-        Break;
+        Continue;
       end
       else begin
-        LListNumbers.Push(StrToCurr(LNumber));
-        Break;
+        LListNumbers.Enqueue(StrToCurr(LNumber));
+        LNumber := '';
       end;
     end;
 
@@ -302,20 +303,21 @@ begin
   Result := LListNumbers;
 end;
 
-function TPrincipal.getOperators(pExpressao: String): TStack<String>;
+function TPrincipal.getOperators(pExpressao: String): TQueue<String>;
 var
   cont: Integer;
-  LListOperadores: TStack<String>;
+  LListOperadores: TQueue<String>;
 begin
-  LListOperadores := TStack<String>.Create;
+  LListOperadores := TQueue<String>.Create;
   cont := 0;
 
   for var LChar in PExpressao do
   begin
     if ((isOperator(LChar)) and (cont <> 0)) then
     begin
-      LListOperadores.Push(LChar);
+      LListOperadores.Enqueue(LChar);
       cont := 0;
+      Continue;
     end;
     cont := 1;
   end;
@@ -344,7 +346,6 @@ begin
   begin
     LValor := pValorA + pValorB;
   end;
-
   if pStringA = '-' then
   begin
     LValor := pValorA - pValorB;
@@ -357,7 +358,7 @@ begin
 
   if pStringA = '/' then
   begin
-    LValor := pValorA + pValorB;
+    LValor := pValorA / pValorB;
   end;
 
   Result := LValor;

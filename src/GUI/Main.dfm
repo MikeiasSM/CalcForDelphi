@@ -25,6 +25,8 @@ object Principal: TPrincipal
     Padding.Right = 5
     Padding.Bottom = 5
     TabOrder = 0
+    ExplicitWidth = 385
+    ExplicitHeight = 432
     object pnDisplay: TPanel
       Left = 5
       Top = 5
@@ -36,6 +38,7 @@ object Principal: TPrincipal
       Padding.Left = 5
       Padding.Right = 5
       TabOrder = 0
+      ExplicitWidth = 375
       object lblDisplay: TLabel
         Left = 5
         Top = 0
@@ -65,6 +68,8 @@ object Principal: TPrincipal
       Padding.Top = 5
       Padding.Bottom = 5
       TabOrder = 1
+      ExplicitWidth = 375
+      ExplicitHeight = 321
       object GridPanel1: TGridPanel
         Left = 0
         Top = 5
@@ -189,6 +194,8 @@ object Principal: TPrincipal
             SizeStyle = ssAuto
           end>
         TabOrder = 0
+        ExplicitWidth = 375
+        ExplicitHeight = 311
         object btnNumSete: TButton
           Left = 0
           Top = 0
@@ -204,6 +211,7 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 0
           OnClick = btnNumSeteClick
+          ExplicitWidth = 94
         end
         object btnNumOito: TButton
           Left = 95
@@ -220,6 +228,7 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 1
           OnClick = btnNumOitoClick
+          ExplicitLeft = 94
         end
         object btnNumNove: TButton
           Left = 189
@@ -236,6 +245,8 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 2
           OnClick = btnNumNoveClick
+          ExplicitLeft = 188
+          ExplicitWidth = 93
         end
         object btnOperadorAdicao: TButton
           Left = 284
@@ -252,6 +263,8 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 3
           OnClick = btnOperadorAdicaoClick
+          ExplicitLeft = 281
+          ExplicitWidth = 94
         end
         object btnNumQuatro: TButton
           Left = 0
@@ -268,6 +281,7 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 4
           OnClick = btnNumQuatroClick
+          ExplicitWidth = 94
         end
         object btnNumCinco: TButton
           Left = 95
@@ -284,6 +298,7 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 5
           OnClick = btnNumCincoClick
+          ExplicitLeft = 94
         end
         object btnNumSeis: TButton
           Left = 189
@@ -300,6 +315,8 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 6
           OnClick = btnNumSeisClick
+          ExplicitLeft = 188
+          ExplicitWidth = 93
         end
         object btnOperadorSubtracao: TButton
           Left = 284
@@ -316,6 +333,8 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 7
           OnClick = btnOperadorSubtracaoClick
+          ExplicitLeft = 281
+          ExplicitWidth = 94
         end
         object btnNumUm: TButton
           Left = 0
@@ -332,6 +351,8 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 8
           OnClick = btnNumUmClick
+          ExplicitWidth = 94
+          ExplicitHeight = 77
         end
         object btnNumDois: TButton
           Left = 95
@@ -348,6 +369,8 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 9
           OnClick = btnNumDoisClick
+          ExplicitLeft = 94
+          ExplicitHeight = 77
         end
         object btnNumTres: TButton
           Left = 189
@@ -364,6 +387,9 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 10
           OnClick = btnNumTresClick
+          ExplicitLeft = 188
+          ExplicitWidth = 93
+          ExplicitHeight = 77
         end
         object btnOperadorMultiplicacao: TButton
           Left = 284
@@ -380,6 +406,9 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 11
           OnClick = btnOperadorMultiplicacaoClick
+          ExplicitLeft = 281
+          ExplicitWidth = 94
+          ExplicitHeight = 77
         end
         object btnVirgula: TButton
           Left = 0
@@ -396,6 +425,8 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 12
           OnClick = btnVirgulaClick
+          ExplicitTop = 233
+          ExplicitWidth = 94
         end
         object btnNumZero: TButton
           Left = 95
@@ -412,6 +443,8 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 13
           OnClick = btnNumZeroClick
+          ExplicitLeft = 94
+          ExplicitTop = 233
         end
         object btnOperadorIgual: TButton
           Left = 189
@@ -428,6 +461,8 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 14
           OnClick = btnOperadorIgualClick
+          ExplicitLeft = 195
+          ExplicitTop = 240
         end
         object btnOperadorDivisao: TButton
           Left = 284
@@ -445,6 +480,9 @@ object Principal: TPrincipal
           ParentFont = False
           TabOrder = 15
           OnClick = btnOperadorDivisaoClick
+          ExplicitLeft = 281
+          ExplicitTop = 233
+          ExplicitWidth = 94
         end
       end
     end
@@ -458,6 +496,7 @@ object Principal: TPrincipal
       Padding.Left = 5
       Padding.Top = 5
       TabOrder = 2
+      ExplicitWidth = 375
       object lblOperacao: TLabel
         Left = 5
         Top = 5
@@ -485,6 +524,7 @@ object Principal: TPrincipal
         Caption = '<-'
         TabOrder = 0
         OnClick = btnBackspaceClick
+        ExplicitLeft = 280
       end
       object btnClear: TButton
         Left = 189
@@ -495,6 +535,7 @@ object Principal: TPrincipal
         Caption = 'C'
         TabOrder = 1
         OnClick = btnClearClick
+        ExplicitLeft = 185
       end
     end
   end
